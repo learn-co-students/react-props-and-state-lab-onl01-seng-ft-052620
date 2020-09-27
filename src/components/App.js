@@ -27,7 +27,7 @@ class App extends React.Component {
       // .catch(err => console.log(err))
     fetch(url)
     .then(resp => resp.json())
-    .then(pets => this.newPetState(pets))
+    .then(pets => this.setState({pets: pets}))
     .catch(err => console.log(err))
 
   }
@@ -53,6 +53,16 @@ class App extends React.Component {
    })
   }
 
+  onAdoptPet = (id) => {
+    
+    let petsArrayCopy = [...this.state.pets]
+    let thePet = petsArrayCopy.find(p=> p.id=== id)
+    thePet.isAdopted = true
+    this.setState({
+      pet: petsArrayCopy
+  })
+}
+
   render() {
     return (
       <div className="ui container">
@@ -66,7 +76,7 @@ class App extends React.Component {
               onFindPetsClick={this.getPets} />
             </div>
             <div className="twelve wide column">
-              <PetBrowser pets={this.state.pets}/>
+              <PetBrowser onAdoptPet={this.onAdoptPet} pets={this.state.pets} />
             </div>
           </div>
         </div>
