@@ -15,6 +15,12 @@ class App extends React.Component {
     }
   }
 
+  componenetDidMount() {
+    fetch('/api/pets')
+    .then(resp => resp.json())
+    .then(pets => this.setState({ pets }))
+  }
+
   render() {
     return (
       <div className="ui container">
